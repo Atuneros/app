@@ -2,11 +2,13 @@ doctype
 html
     head 
         title Proyectos 3
-        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-        script(src="https://cdn.jsdelivr.net/npm/apexcharts")
-        script(src="/js/func.js")
+        link(rel="stylesheet", href="css/index.css") 
     body  
         #chart
         select#dias
-        select#empresas
-        select#empresas2
+        select#empresas.empresa
+        span COMPARAR CON
+        select#empresas2.empresa
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+        script(src="https://cdn.jsdelivr.net/npm/apexcharts")
+        script(src="js/func.js")
