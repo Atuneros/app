@@ -1,12 +1,12 @@
-var data = require('./datos_bolsa.json');
-console.log(data[0])
-
 const express = require('express')
 const app = express()
 const port = 3000
+
 const path = require('path')
 app.use(express.static('public'));
 app.use('/static', express.static(__dirname + '/public'));
+
+var data = require('./datos_bolsa.json');
 
 app.get("/loadData",function(request, response){
   response.header('Access-Control-Allow-Origin', "*");
@@ -17,5 +17,5 @@ app.get("/loadData",function(request, response){
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
