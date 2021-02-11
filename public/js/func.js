@@ -21,6 +21,7 @@ $(function() {
       titulo_grafica = "Datos para " + nombre
     }
   }else{
+    nombre2 = "-----NINGUNA-----"
     titulo_grafica = "Datos para " + nombre
   }
 
@@ -57,9 +58,10 @@ $(function() {
       }
 
     }else{
+      $("#empresas2").append(new Option(nombre2))
       for(x = 0; x < 35; x++){
-        $("#empresas").append(new Option(data[x]["nombre"]));
-        $("#empresas2").append(new Option(data[x]["nombre"]));
+        $("#empresas").append(new Option(data[x]["nombre"]))
+        $("#empresas2").append(new Option(data[x]["nombre"]))
       }
     }
 
