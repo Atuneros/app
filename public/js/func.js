@@ -72,21 +72,22 @@ $(function() {
           if(temp = "" || temp != item.fecha){
             dias.push(item.fecha)
             //precio.push(item.ultimo)
-            datos_combinados.push({x:item.fecha, y:item.ultimo})
+            console.log(item.fecha)
+            console.log(item.ultimo)
+            fecha = item.fecha.substr(3, 2)+"/"+item.fecha.substr(0, 2)+"/"+item.fecha.substr(6, 4)+" GMT";
+            datos_combinados.push([new Date(fecha), item.ultimo])
           }
           temp = item.fecha
         }else if(item.nombre == nombre2){
           if(temp2 = "" || temp2 != item.fecha){
-            datos2_combinados.push({x:item.fecha, y:item.ultimo})
+            fecha = item.fecha.substr(3, 2)+"/"+item.fecha.substr(0, 2)+"/"+item.fecha.substr(6, 4)+" GMT";
+            datos2_combinados.push([new Date(fecha), item.ultimo])
           }
           temp2 = item.fecha
         }
       }
     })
-
     console.log(datos_combinados)
-    console.log(datos2_combinados)
-
     $("#dias").append(new Option("Todos los días"))
     for(x = 0; x < dias.length; x++){
       $("#dias").append(new Option(dias[x]))
@@ -99,8 +100,8 @@ $(function() {
           },{
             name: nombre2,
             data: datos2_combinados
-          }],
-            chart: {
+          }],chart: {
+            id: "area-datetime",
             type: 'area',
             stacked: false,
             zoom: {
@@ -109,9 +110,6 @@ $(function() {
           },
           dataLabels: {
             enabled: false
-          },
-          stroke: {
-            curve: 'smooth'
           },
           title: {
             text: titulo_grafica,
@@ -123,8 +121,12 @@ $(function() {
           },
           legend: {
             horizontalAlign: 'left'
+          },
+          xaxis: {
+            type: 'datetime',
+            min: new Date('08 JAN 2021').getTime()
           }
-          }
+        }
 
     var chart = new ApexCharts(document.querySelector("#chart"), options)
 
