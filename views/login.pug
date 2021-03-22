@@ -1,3 +1,21 @@
 extends layout
 block content 
-    span LOGIN PAGE
+    #main_content
+        .text EMAIL
+        form(action="/login", method="post") 
+            input(
+                class = "email"
+                type = "email"
+                name = "email"
+            )
+            .text PASSWORD
+            input(
+                class = "password"
+                type = "password"
+                name = "password"
+            )
+            br
+            input(
+                type = "submit"
+                value = "Login"
+            )
