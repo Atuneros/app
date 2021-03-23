@@ -20,5 +20,6 @@ const userSchema = new Schema({
     }
 }, {timestamps: true})
 
+//DEFINO LA COLECCION (LA PRIMERA EN MAYUSCULA) Y EL ESQUEMA QUE VOY A UTILIZAR PARA LAS QUERYS
 const User = conn.model("User", userSchema)
 module.exports = User

@@ -3,11 +3,11 @@ const router = express.Router()
 
 const appController = require("../controllers/appController")
 
-//GET requests
-router.get("/", appController.login_index)
-router.get("/logout", appController.logout)
+//GET REQUESTS
+router.get("/", appController.login_index_get)
 
-//POST requests
-router.post("/login", appController.login)
+//POST REQUESTS
+router.post("/login", appController.login_post)
+router.post("/logout", appController.logout_post)
 
 module.exports = router

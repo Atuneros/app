@@ -1,6 +1,12 @@
 extends layout 
 block content 
     #main_content
+        #topBar
+            form(action="/logout", method="post")
+                input(
+                type = "submit"
+                value = "Logout"
+            )
         #chart
         #sidebar SIDEBAR
             select#empresas
