@@ -1,5 +1,5 @@
 $(function() {
-
+    
   var nombre = ""
   var nombre2 = ""
   var titulo_grafica = ""
@@ -24,18 +24,14 @@ $(function() {
     nombre2 = "-----NINGUNA-----"
     titulo_grafica = "Datos para " + nombre
   }
-
-  $.get("http://localhost:3000/loadData", function(data){
-    procesarDatos(data)
-  })
-
+  
   //var precio = []
   var dias = []
   var datos_combinados = []
   var datos2_combinados = []
   var temp = ""
   var temp2 = ""
-
+  procesarDatos(data)
   function procesarDatos(data){
     if(empresa_selected || empresa2_selected){
 
@@ -92,7 +88,7 @@ $(function() {
     for(x = 0; x < dias.length; x++){
       $("#dias").append(new Option(dias[x]))
     }
-
+    
     var options = {
             series: [{
             name: nombre,
@@ -123,8 +119,7 @@ $(function() {
             horizontalAlign: 'left'
           },
           xaxis: {
-            type: 'datetime',
-            min: new Date('08 JAN 2021').getTime()
+            type: 'datetime'
           }
         }
 

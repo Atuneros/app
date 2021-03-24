@@ -3,9 +3,8 @@ const express = require("express")
 const app = express()
 const port = 3000
 
-//SETUP CACHE
-const nodeCache = require("node-cache");
-const cache = new nodeCache();
+
+
 
 //SETUP SESIONES
 const session = require("express-session");

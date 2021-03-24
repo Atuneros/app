@@ -1,18 +1,59 @@
 //MODULO DE NODEJS PARA ENCRIPTAR
 const bcrypt = require('bcrypt');
 
+//MODULO CACHE
+const nodeCache = require("node-cache");
+const cache = new nodeCache({stdTTL: 3600});
+
 //IMPORTAMOS LOS MODELOS PARA LAS QUERYS
 const User = require("../models/user")
 const StockMarket = require("../models/stockMarket")
 
+//COMPRUEBA SI HAY UNA SESION INICIADA PARA PERMITIR EL ACCESO
+function checkSession(req){
+    if(req.session.userId){
+        return true
+    }else{
+        return false
+    }
+}
+
+/*
+    GET
+*/
+
 //SIRVE LA PAGINA DE INDEX SI EL USUARIO TIENE SESION ABIERTA
 const login_index_get = (req, res) => {
-    if(req.session.userId){
-        res.render("index")
+    if(checkSession(req)){
+        if(!cache.get("datos")){
+            StockMarket.find({})
+            .then((result) => {
+                cache.set("datos", result)
+                res.render("index", {data: cache.get("datos")})
+            })
+        }else{
+            res.render("index", {data: cache.get("datos")})
+        }
     }else{
         res.render("login")
     }
 }
+
+const data_get = (req, res) => {
+    if(checkSession(req)){
+        console.log(req.params.id)
+        StockMarket.find({nombre: (req.params.id).toUpperCase()}).
+        then((result) => {
+            res.render("index", {data: result})
+        })
+    }else{
+        res.redirect("/")
+    }
+}
+
+/*
+    POST
+*/
 
 //GESTIONA LAS PETICIONES DE LOGIN
 const login_post = (req, res) => {
@@ -31,7 +72,7 @@ const login_post = (req, res) => {
                     res.redirect("/")
                 })
             }else{
-                //COMPARO LA CONTRASEÑA CON EL HASH ALMACENADO EN LA BBDD
+                //COMPARA LA CONTRASEÑA CON EL HASH ALMACENADO EN LA BBDD
                 if (bcrypt.compareSync(req.body.password, result.password)) {
                     req.session.userId = req.session.id
                     res.redirect("/")
@@ -55,6 +96,7 @@ const logout_post = (req, res) => {
 //EXPORTA LAS FUNCIONES PARA SER USADAS POR EL ROUTER
 module.exports = {
     login_index_get,
+    data_get,
     login_post,
     logout_post
 }
