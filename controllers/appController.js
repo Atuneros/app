@@ -30,30 +30,13 @@ const login_index_get = (req, res) => {
             .then((result) => {
                 console.log("SE HA CONSULTADO LA BBDD")
                 cache.set("datos", result)
-                res.render("index", {data: cache.get("datos")})
+                res.render("index", {data: cache.get("datos"), cartera: req.session.cartera, acciones: req.session.acciones})
             })
-
-            /*User.findOneAndUpdate({}, {cartera:2})
-            .then((result) => {
-                CODIGO PARA HACER UPDATE A 1 USUARIO
-            })*/
         }else{
-            res.render("index", {data: cache.get("datos")})
+            res.render("index", {data: cache.get("datos"), cartera: req.session.cartera, acciones: req.session.acciones})
         }
     }else{
         res.render("login")
-    }
-}
-
-const data_get = (req, res) => {
-    if(checkSession(req)){
-        console.log(req.params.id)
-        StockMarket.find({nombre: (req.params.id).toUpperCase()}).
-        then((result) => {
-            res.render("index", {data: result})
-        })
-    }else{
-        res.redirect("/")
     }
 }
 
@@ -70,17 +53,19 @@ const login_post = (req, res) => {
                 const user = new User({
                     username: req.body.email,
                     password: hash,
-                    cartera: 0
+                    cartera: 0,
+                    acciones: {}
                 })
+
                 user.save()
                 .then((result) => {
-                    req.session.userId = req.session.id
+                    set_session_vars(req, result)
                     res.redirect("/")
                 })
             } else{
                 //COMPARA LA CONTRASEÑA CON EL HASH ALMACENADO EN LA BBDD
                 if (bcrypt.compareSync(req.body.password, result.password)) {
-                    req.session.userId = req.session.id
+                    set_session_vars(req, result)
                     res.redirect("/")
                 } else {
                     res.redirect("/")
@@ -93,16 +78,70 @@ const login_post = (req, res) => {
     })
 }
 
+//FUNCION AUXILIAR
+const set_session_vars = (req, vars) => {
+    req.session.userId = req.session.id
+    req.session.userName = vars.username
+    req.session.cartera = vars.cartera
+    req.session.acciones = vars.acciones
+}
+
 //ELIMINA LA SESION DEL USUARIO
 const logout_post = (req, res) => {
     req.session.destroy()
     res.redirect("/")
 }
 
+const buy_post = (req, res) => {
+    console.log("CLIENTE QUIERE COMPRAR")
+    StockMarket.findOne({nombre: req.body.empresa}).sort({_id: -1})
+    .then((empresa) => {
+        User.findOne({username: req.session.userName})
+        .then((usuario) => {
+            req.session.cartera = usuario.cartera - empresa.ultimo
+            usuario.cartera = req.session.cartera
+            empresa.nombre = empresa.nombre.split(".").join("")
+
+            if(!usuario.acciones.get(empresa.nombre)){
+                usuario.acciones.set(empresa.nombre, 1)
+            }else{
+                usuario.acciones.set(empresa.nombre, usuario.acciones.get(empresa.nombre)+1)
+            }
+
+            usuario.save()
+            .then(() => {
+                res.json({cartera: req.session.cartera, acciones: usuario.acciones})
+            })
+        })
+    })
+}
+
+const sell_post = (req, res) => {
+    console.log("CLIENTE QUIERE VENDER")
+    StockMarket.findOne({nombre: req.body.empresa}).sort({_id: -1})
+    .then((empresa) => {
+        User.findOne({username: req.session.userName})
+        .then((usuario) => {
+            req.session.cartera = usuario.cartera + empresa.ultimo
+            usuario.cartera = req.session.cartera
+            empresa.nombre = empresa.nombre.split(".").join("")
+
+            if(usuario.acciones.get(empresa.nombre) && usuario.acciones.get(empresa.nombre) != 0){
+                usuario.acciones.set(empresa.nombre, usuario.acciones.get(empresa.nombre)-1)
+                usuario.save()
+                .then(() => {
+                    res.json({cartera: req.session.cartera, acciones: usuario.acciones})
+                })
+            }
+        })
+    })
+}
+
 //EXPORTA LAS FUNCIONES PARA SER USADAS POR EL ROUTER
 module.exports = {
     login_index_get,
-    data_get,
     login_post,
-    logout_post
+    logout_post,
+    buy_post,
+    sell_post
 }

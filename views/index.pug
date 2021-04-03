@@ -1,7 +1,8 @@
 extends layout 
 block content 
     #main_content
-        #topBar
+        #topbar
+            #cartera
             form(action="/logout", method="post")
                 input(
                     type = "submit"
@@ -10,18 +11,29 @@ block content
         #chart
         #sidebar
             select#empresas
+            #numeroAcciones
             #precioAccion
-            form(action="/buy", method="post")
+            form(id = "formComprar", action="/buy")
                 input(
                     id = "comprar"
                     type = "submit"
                     value = "Comprar"
                 )
-            form(action="/sell", method="post")
+                input(
+                    type = "hidden"
+                    class = "transaccion"
+                    name = "empresa"
+                )
+            form(id = "formVender", action="/sell")
                 input(
                     id = "vender"
                     type = "submit"
                     value = "Vender"
+                )
+                input(
+                    type = "hidden"
+                    class = "transaccion"
+                    name = "empresa"
                 )
         #news NOTICIAS
         
@@ -29,5 +41,7 @@ append scripts
     script(src="https://cdn.jsdelivr.net/npm/apexcharts")
     script.
         var data = !{JSON.stringify(data)}
+        var cartera = !{JSON.stringify(cartera)}
+        var acciones = !{JSON.stringify(acciones)}
     script(src="js/func.js")
         

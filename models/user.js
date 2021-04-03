@@ -17,6 +17,11 @@ const userSchema = new Schema({
     cartera:{
         type: Number,
         required: false
+    },
+    acciones:{
+        type: Map,
+        of: Number,
+        required: false
     }
 }, {timestamps: true})
 

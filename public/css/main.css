@@ -1,15 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+*{
+    font-family: 'Open Sans', sans-serif;
+}
+
 html, body{
     height: 100%;
+    background-color: #2b2e4a;
 }
 
 header{
     height: 100px;
-    background-color: darkcyan;
+    background-color: #e84545;
 }
 
 footer{
     height: 100px;
-    background-color: darkred;
+    background-color: #e84545;
+}
+
+#topbar{
+    overflow: hidden;
+    text-align: right;
+    color: #fff;
 }
 
 #main_content{
@@ -22,16 +35,31 @@ footer{
 
 #chart{
     float: left;
-    width: 700px;
+    width: 800px;
     border: 3px solid;
 }
 
 #sidebar{
     float: left;
     border: 3px solid;
+    width: 200px;
+    color: #fff;
 }
 
 #news{
     clear: left;
     border: 3px solid;
+}
+
+#empresas{
+    color: #fff;
+    background: #53354a;
+}
+
+#precioAccion{
+    color: #fff;
+}
+
+.text{
+    color: #fff
 }
