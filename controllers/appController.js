@@ -1,9 +1,9 @@
 //MODULO DE NODEJS PARA ENCRIPTAR
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
 
 //MODULO CACHE
-const nodeCache = require("node-cache");
-const cache = new nodeCache({stdTTL: 3600});
+const nodeCache = require("node-cache")
+const cache = new nodeCache({stdTTL: 3600})
 
 //IMPORTAMOS LOS MODELOS PARA LAS QUERYS
 const User = require("../models/user")
@@ -28,9 +28,15 @@ const login_index_get = (req, res) => {
         if(!cache.get("datos")){
             StockMarket.find({})
             .then((result) => {
+                console.log("SE HA CONSULTADO LA BBDD")
                 cache.set("datos", result)
                 res.render("index", {data: cache.get("datos")})
             })
+
+            /*User.findOneAndUpdate({}, {cartera:2})
+            .then((result) => {
+                CODIGO PARA HACER UPDATE A 1 USUARIO
+            })*/
         }else{
             res.render("index", {data: cache.get("datos")})
         }
@@ -71,7 +77,7 @@ const login_post = (req, res) => {
                     req.session.userId = req.session.id
                     res.redirect("/")
                 })
-            }else{
+            } else{
                 //COMPARA LA CONTRASEÑA CON EL HASH ALMACENADO EN LA BBDD
                 if (bcrypt.compareSync(req.body.password, result.password)) {
                     req.session.userId = req.session.id

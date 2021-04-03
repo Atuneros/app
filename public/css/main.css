@@ -27,7 +27,7 @@ footer{
 }
 
 #sidebar{
-    float:right;
+    float: left;
     border: 3px solid;
 }
 

@@ -4,12 +4,25 @@ block content
         #topBar
             form(action="/logout", method="post")
                 input(
-                type = "submit"
-                value = "Logout"
-            )
+                    type = "submit"
+                    value = "Logout"
+                )
         #chart
-        #sidebar SIDEBAR
+        #sidebar
             select#empresas
+            #precioAccion
+            form(action="/buy", method="post")
+                input(
+                    id = "comprar"
+                    type = "submit"
+                    value = "Comprar"
+                )
+            form(action="/sell", method="post")
+                input(
+                    id = "vender"
+                    type = "submit"
+                    value = "Vender"
+                )
         #news NOTICIAS
         
 append scripts
