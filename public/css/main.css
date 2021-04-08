@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 *{
     font-family: 'Open Sans', sans-serif;
@@ -10,8 +11,21 @@ html, body{
 }
 
 header{
-    height: 100px;
     background-color: #e84545;
+    
+}
+
+.titulo{
+    font-family: 'Orbitron', sans-serif;
+    font-size: xx-large;
+    text-align: center;
+    color: white;
+    border: 10px solid;
+    margin: 0 auto;
+    width: 900px;
+    height: auto;
+    padding: 10px;
+    position: relative;
 }
 
 footer{
@@ -25,33 +39,66 @@ footer{
     color: #fff;
 }
 
-#main_content{
+.main_content{
     overflow: hidden;
     margin: auto;
     padding: 10px;
-    width: 1080px;
-    
+    width: 1200px;
+}
+
+#main_content_login{
+    margin: 10 auto;
+    width: 250px;
+    height: auto;
+    padding: 10px;
+    position: relative;
+}
+
+#main_content_login form{
+    border: 4px solid #fff;
+    padding: 15px;
+    width: 200px;
+    background: #53354a;
+}
+
+#main_content_login input[type="submit"]{
+    background-color: #903749;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.5s;
+}
+
+#main_content_login input[type="submit"]:hover{
+    cursor: pointer;
+    background: #e84545;
 }
 
 #chart{
     float: left;
     width: 800px;
-    border: 3px solid;
 }
 
 #sidebar{
     float: left;
-    border: 3px solid;
-    width: 200px;
+    width: 350px;
     color: #fff;
+    padding: 10px;
 }
 
 #news{
     clear: left;
-    border: 3px solid;
+    width: 730px;
+    border: 1px solid #fff;
+    margin-left: 20px;
+    background: #e84545;
+    padding:20px;
 }
 
-#empresas{
+#empresas, #empresas2{
     color: #fff;
     background: #53354a;
 }
@@ -62,4 +109,54 @@ footer{
 
 .text{
     color: #fff
+}
+
+#cartera{
+    float: right;
+}
+
+#topbar form{
+    width: 100px;
+    float: right;
+}
+
+#topbar input[type="submit"]{
+    background-color: #903749;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.5s;
+}
+
+#topbar input[type="submit"]:hover{
+    cursor: pointer;
+    background: #e84545;
+}
+
+#news div{
+    border: 3px solid #fff;
+    margin: 10px 10px;
+    padding: 10px;
+    background: #903749;
+}
+
+#news div a{
+    color:#fff;
+    font-size: larger;
+}
+
+.noticias{
+    font-size: xx-large;
+}
+
+#gestionAcciones{
+    float: left;
+}
+
+#comparaciones{
+    float: left;
+    margin-left: 20px;
 }

@@ -1,8 +1,8 @@
 extends layout
 block content 
-    #main_content
-        .text USERNAME
+    div(class = "main_content", id = "main_content_login") 
         form(action="/login", method="post") 
+            .text USERNAME
             input(
                 class = "email"
                 type = "text"
@@ -14,6 +14,7 @@ block content
                 type = "password"
                 name = "password"
             )
+            br
             br
             input(
                 type = "submit"

@@ -8,6 +8,7 @@ const cache = new nodeCache({stdTTL: 3600})
 //IMPORTAMOS LOS MODELOS PARA LAS QUERYS
 const User = require("../models/user")
 const StockMarket = require("../models/stockMarket")
+const Noticia = require("../models/noticia")
 
 //COMPRUEBA SI HAY UNA SESION INICIADA PARA PERMITIR EL ACCESO
 function checkSession(req){
@@ -28,9 +29,12 @@ const login_index_get = (req, res) => {
         if(!cache.get("datos")){
             StockMarket.find({})
             .then((result) => {
-                console.log("SE HA CONSULTADO LA BBDD")
-                cache.set("datos", result)
-                res.render("index", {data: cache.get("datos"), cartera: req.session.cartera, acciones: req.session.acciones})
+                Noticia.find({}).sort({_id:-1}).limit(3)
+                .then((noticias) => {
+                    console.log("SE HA CONSULTADO LA BBDD")
+                    cache.set("datos", [result, noticias.reverse()])
+                    res.render("index", {data: cache.get("datos"), cartera: req.session.cartera, acciones: req.session.acciones})
+                })
             })
         }else{
             res.render("index", {data: cache.get("datos"), cartera: req.session.cartera, acciones: req.session.acciones})
@@ -46,36 +50,40 @@ const login_index_get = (req, res) => {
 
 //GESTIONA LAS PETICIONES DE LOGIN
 const login_post = (req, res) => {
-    bcrypt.hash(req.body.password, 10, function(err, hash){
-        User.findOne({username: req.body.email})
-        .then((result) => {
-            if(!result){
-                const user = new User({
-                    username: req.body.email,
-                    password: hash,
-                    cartera: 0,
-                    acciones: {}
-                })
-
-                user.save()
-                .then((result) => {
-                    set_session_vars(req, result)
-                    res.redirect("/")
-                })
-            } else{
-                //COMPARA LA CONTRASEÑA CON EL HASH ALMACENADO EN LA BBDD
-                if (bcrypt.compareSync(req.body.password, result.password)) {
-                    set_session_vars(req, result)
-                    res.redirect("/")
-                } else {
-                    res.redirect("/")
+    if(!req.body.email || !req.body.password){
+        res.redirect("/")
+    }else{
+        bcrypt.hash(req.body.password, 10, function(err, hash){
+            User.findOne({username: req.body.email})
+            .then((result) => {
+                if(!result){
+                    const user = new User({
+                        username: req.body.email,
+                        password: hash,
+                        cartera: 0,
+                        acciones: {}
+                    })
+    
+                    user.save()
+                    .then((result) => {
+                        set_session_vars(req, result)
+                        res.redirect("/")
+                    })
+                } else{
+                    //COMPARA LA CONTRASEÑA CON EL HASH ALMACENADO EN LA BBDD
+                    if (bcrypt.compareSync(req.body.password, result.password)) {
+                        set_session_vars(req, result)
+                        res.redirect("/")
+                    } else {
+                        res.redirect("/")
+                    }
                 }
-            }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
         })
-        .catch((err) => {
-            console.log(err)
-        })
-    })
+    }
 }
 
 //FUNCION AUXILIAR
@@ -93,12 +101,12 @@ const logout_post = (req, res) => {
 }
 
 const buy_post = (req, res) => {
-    console.log("CLIENTE QUIERE COMPRAR")
     StockMarket.findOne({nombre: req.body.empresa}).sort({_id: -1})
     .then((empresa) => {
         User.findOne({username: req.session.userName})
         .then((usuario) => {
             req.session.cartera = usuario.cartera - empresa.ultimo
+            req.session.acciones = usuario.acciones
             usuario.cartera = req.session.cartera
             empresa.nombre = empresa.nombre.split(".").join("")
 
@@ -117,12 +125,12 @@ const buy_post = (req, res) => {
 }
 
 const sell_post = (req, res) => {
-    console.log("CLIENTE QUIERE VENDER")
     StockMarket.findOne({nombre: req.body.empresa}).sort({_id: -1})
     .then((empresa) => {
         User.findOne({username: req.session.userName})
         .then((usuario) => {
             req.session.cartera = usuario.cartera + empresa.ultimo
+            req.session.acciones = usuario.acciones
             usuario.cartera = req.session.cartera
             empresa.nombre = empresa.nombre.split(".").join("")
 

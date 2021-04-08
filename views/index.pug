@@ -1,41 +1,48 @@
 extends layout 
 block content 
-    #main_content
+    div(class = "main_content", id = "main_content_index")
         #topbar
-            #cartera
             form(action="/logout", method="post")
                 input(
                     type = "submit"
                     value = "Logout"
                 )
+            #cartera
         #chart
         #sidebar
-            select#empresas
-            #numeroAcciones
-            #precioAccion
-            form(id = "formComprar", action="/buy")
-                input(
-                    id = "comprar"
-                    type = "submit"
-                    value = "Comprar"
-                )
-                input(
-                    type = "hidden"
-                    class = "transaccion"
-                    name = "empresa"
-                )
-            form(id = "formVender", action="/sell")
-                input(
-                    id = "vender"
-                    type = "submit"
-                    value = "Vender"
-                )
-                input(
-                    type = "hidden"
-                    class = "transaccion"
-                    name = "empresa"
-                )
-        #news NOTICIAS
+            #gestionAcciones
+                select#empresas
+                #precioAccion
+                form(id = "formComprar", action="/buy")
+                    input(
+                        id = "comprar"
+                        type = "submit"
+                        value = "Comprar"
+                    )
+                    input(
+                        type = "hidden"
+                        class = "transaccion"
+                        name = "empresa"
+                    )
+                form(id = "formVender", action="/sell")
+                    input(
+                        id = "vender"
+                        type = "submit"
+                        value = "Vender"
+                    )
+                    input(
+                        type = "hidden"
+                        class = "transaccion"
+                        name = "empresa"
+                    )
+                br
+                #numeroAcciones
+            #comparaciones
+                button(id="comparar") Comparar
+                br
+                select#empresas2
+        #news 
+            span(class="noticias") NOTICIAS
         
 append scripts
     script(src="https://cdn.jsdelivr.net/npm/apexcharts")
