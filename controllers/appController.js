@@ -9,6 +9,7 @@ const cache = new nodeCache({stdTTL: 3600})
 const User = require("../models/user")
 const StockMarket = require("../models/stockMarket")
 const Noticia = require("../models/noticia")
+const Transaccion = require("../models/transaccion")
 
 //COMPRUEBA SI HAY UNA SESION INICIADA PARA PERMITIR EL ACCESO
 function checkSession(req){
@@ -17,6 +18,14 @@ function checkSession(req){
     }else{
         return false
     }
+}
+
+//FUNCION AUXILIAR
+const set_session_vars = (req, vars) => {
+    req.session.userId = req.session.id
+    req.session.userName = vars.username
+    req.session.cartera = vars.cartera
+    req.session.acciones = vars.acciones
 }
 
 /*
@@ -41,6 +50,19 @@ const login_index_get = (req, res) => {
         }
     }else{
         res.render("login")
+    }
+}
+
+//SIRVE LA PAGINA DE TRANSACCIONES SI EL USUARIO TIENE SESION ABIERTA
+const transacciones_get = (req, res) => {
+    if(checkSession(req)){
+        Transaccion.find({username: req.session.userName}).sort({createdAt: -1})
+        .then((result) => {
+            res.render("transacciones", {data: result})
+        })
+        
+    }else{
+        res.redirect("/")
     }
 }
 
@@ -86,59 +108,76 @@ const login_post = (req, res) => {
     }
 }
 
-//FUNCION AUXILIAR
-const set_session_vars = (req, vars) => {
-    req.session.userId = req.session.id
-    req.session.userName = vars.username
-    req.session.cartera = vars.cartera
-    req.session.acciones = vars.acciones
-}
-
 //ELIMINA LA SESION DEL USUARIO
 const logout_post = (req, res) => {
     req.session.destroy()
     res.redirect("/")
 }
 
+//FUNCION COMPRAR ACCIONES Y ALMACENAR EN BBDD
 const buy_post = (req, res) => {
     StockMarket.findOne({nombre: req.body.empresa}).sort({_id: -1})
     .then((empresa) => {
         User.findOne({username: req.session.userName})
         .then((usuario) => {
-            req.session.cartera = usuario.cartera - empresa.ultimo
+            req.session.cartera = usuario.cartera - empresa.ultimo*req.body.totalAcciones
             req.session.acciones = usuario.acciones
             usuario.cartera = req.session.cartera
             empresa.nombre = empresa.nombre.split(".").join("")
-
-            if(!usuario.acciones.get(empresa.nombre)){
-                usuario.acciones.set(empresa.nombre, 1)
-            }else{
-                usuario.acciones.set(empresa.nombre, usuario.acciones.get(empresa.nombre)+1)
+            
+            if(!usuario.acciones.get(empresa.nombre) && req.body.totalAcciones > 0){
+                usuario.acciones.set(empresa.nombre, req.body.totalAcciones)
+            }else if(req.body.totalAcciones > 0){
+                usuario.acciones.set(empresa.nombre, parseInt(usuario.acciones.get(empresa.nombre))+parseInt(req.body.totalAcciones))
             }
 
-            usuario.save()
-            .then(() => {
-                res.json({cartera: req.session.cartera, acciones: usuario.acciones})
-            })
+            if(req.body.totalAcciones > 0){
+                const transaccion = new Transaccion({
+                    username: usuario.username,
+                    empresa: empresa.nombre,
+                    acciones: req.body.totalAcciones,
+                    valor: req.body.valor,
+                    movimiento: "Compra"
+                })
+                transaccion.save().
+                then(() => {
+                    usuario.save()
+                    .then(() => {
+                        res.json({cartera: req.session.cartera, acciones: usuario.acciones})
+                    })
+                })
+            }
         })
     })
 }
 
+//FUNCION VENDER ACCIONES Y ALMACENAR EN BBDD
 const sell_post = (req, res) => {
     StockMarket.findOne({nombre: req.body.empresa}).sort({_id: -1})
     .then((empresa) => {
         User.findOne({username: req.session.userName})
         .then((usuario) => {
-            req.session.cartera = usuario.cartera + empresa.ultimo
+            req.session.cartera = usuario.cartera + empresa.ultimo*req.body.totalAcciones
             req.session.acciones = usuario.acciones
             usuario.cartera = req.session.cartera
             empresa.nombre = empresa.nombre.split(".").join("")
 
-            if(usuario.acciones.get(empresa.nombre) && usuario.acciones.get(empresa.nombre) != 0){
-                usuario.acciones.set(empresa.nombre, usuario.acciones.get(empresa.nombre)-1)
+            const transaccion = new Transaccion({
+                username: usuario.username,
+                empresa: empresa.nombre,
+                acciones: req.body.totalAcciones,
+                valor: req.body.valor,
+                movimiento: "Venta"
+            })
+
+            if(usuario.acciones.get(empresa.nombre) && usuario.acciones.get(empresa.nombre) != 0 && parseInt(usuario.acciones.get(empresa.nombre))-parseInt(req.body.totalAcciones) >= 0){
+                usuario.acciones.set(empresa.nombre, parseInt(usuario.acciones.get(empresa.nombre))-parseInt(req.body.totalAcciones))
                 usuario.save()
                 .then(() => {
-                    res.json({cartera: req.session.cartera, acciones: usuario.acciones})
+                    transaccion.save().
+                    then(() => {
+                        res.json({cartera: req.session.cartera, acciones: usuario.acciones})
+                    })
                 })
             }
         })
@@ -151,5 +190,6 @@ module.exports = {
     login_post,
     logout_post,
     buy_post,
-    sell_post
+    sell_post,
+    transacciones_get
 }

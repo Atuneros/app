@@ -8,41 +8,76 @@ block content
                     value = "Logout"
                 )
             #cartera
-        #chart
-        #sidebar
-            #gestionAcciones
-                select#empresas
-                #precioAccion
-                form(id = "formComprar", action="/buy")
-                    input(
-                        id = "comprar"
-                        type = "submit"
-                        value = "Comprar"
-                    )
-                    input(
-                        type = "hidden"
-                        class = "transaccion"
-                        name = "empresa"
-                    )
-                form(id = "formVender", action="/sell")
-                    input(
-                        id = "vender"
-                        type = "submit"
-                        value = "Vender"
-                    )
-                    input(
-                        type = "hidden"
-                        class = "transaccion"
-                        name = "empresa"
-                    )
-                br
-                #numeroAcciones
-            #comparaciones
-                button(id="comparar") Comparar
-                br
-                select#empresas2
-        #news 
-            span(class="noticias") NOTICIAS
+            form(id="link" action="/transacciones", method="get")
+                input(
+                    type = "submit"
+                    value = "Ver historial transacciones"
+                )
+        #left
+            #chart
+            #news 
+                span(class="noticias") NOTICIAS
+        #right 
+            #sidebar
+                #gestionAcciones
+                    select#empresas
+                    #precioAccion
+                    form(id = "formComprar", action="/buy")
+                        input(
+                            id = "comprar"
+                            type = "submit"
+                            value = "Comprar"
+                        )
+                        input(
+                            class = "num"
+                            type = "number"
+                            class = "totalAcciones"
+                            name = "totalAcciones"
+                            min = "0"
+                        )
+                        img(id="imgComprar", src="img/greenArrow.png")
+                        span(id="compraText")
+                        input(
+                            type = "hidden"
+                            class = "transaccion"
+                            name = "empresa"
+                        )
+                        input(
+                            type = "hidden"
+                            class = "valorTransaccion"
+                            name = "valor"
+                        )
+                    form(id = "formVender", action="/sell")
+                        input(
+                            id = "vender"
+                            type = "submit"
+                            value = "Vender"
+                        )
+                        input(
+                            class = "num"
+                            type = "number"
+                            class = "totalAcciones"
+                            name = "totalAcciones"
+                            min = "0"
+                        )
+                        img(id="imgVender", src="img/greenArrow.png")
+                        span(id="ventaText")
+                        input(
+                            type = "hidden"
+                            class = "transaccion"
+                            name = "empresa"
+                        )
+                        input(
+                            type = "hidden"
+                            class = "valorTransaccion"
+                            name = "valor"
+                        )
+                    #comparaciones
+                        button(id="comparar") Comparar
+                        br
+                        select#empresas2
+                    br
+                    table(id = "numeroAcciones")    
         
 append scripts
     script(src="https://cdn.jsdelivr.net/npm/apexcharts")
@@ -50,5 +85,5 @@ append scripts
         var data = !{JSON.stringify(data)}
         var cartera = !{JSON.stringify(cartera)}
         var acciones = !{JSON.stringify(acciones)}
-    script(src="js/func.js")
+    script(src="js/main.js")
         

@@ -1,0 +1,28 @@
+extends layout 
+block content 
+    div(class = "main_content", id = "main_content_index")
+        #topbar
+            form(action="/logout", method="post")
+                input(
+                    type = "submit"
+                    value = "Logout"
+                )
+            #cartera
+            form(id="link" action="/", method="get")
+                input(
+                    type = "submit"
+                    value = "Ver información empresas"
+                )
+        #table
+            table(id="transacciones")
+                tr 
+                    th(class="izquierda") Empresa 
+                    th(class="derecha") Nº Acciones 
+                    th(class="derecha") Precio
+                    th(class="derecha") Tipo
+                    th(class="derecha") Fecha
+                    th(class="derecha") Total
+append scripts
+    script.
+        var data = !{JSON.stringify(data)}
+    script(src="js/transacciones.js")

@@ -5,6 +5,7 @@ const appController = require("../controllers/appController")
 
 //GET REQUESTS
 router.get("/", appController.login_index_get)
+router.get("/transacciones", appController.transacciones_get)
 
 //POST REQUESTS
 router.post("/login", appController.login_post)

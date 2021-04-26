@@ -1,3 +1,4 @@
+var acciones
 $(function() {
 
     var empresaSeleccionada
@@ -23,21 +24,26 @@ $(function() {
             type: "POST",
             url: url,
             data: form.serialize(),
+            timeout: 3000,
             success: function(data){
                 $("#cartera").text("Cartera: "+data.cartera.toFixed(2)+" €")
                 acciones = data.acciones
-                setInfoDinamica(empresaSeleccionada, precioAccion, data.acciones)
-                $("#comprar").prop('disabled', false)
+                setInfoDinamica(empresaSeleccionada, precioAccion, data.acciones, datosEstructurados)
+                $("#comprar").prop("disabled", false)
+            },
+            error: function(err){
+                $("#comprar").prop("disabled", false)
+                alert("Indica un número correcto de acciones")
             }
-        });  
-    });
+        })
+    })
 
     $("#formVender").submit(function(e) {
         e.preventDefault() 
-        $("#vender").prop('disabled', true)
+        $("#vender").prop("disabled", true)
 
         var form = $(this)
-        var url = form.attr('action')
+        var url = form.attr("action")
 
         $.ajax({
             type: "POST",
@@ -47,15 +53,15 @@ $(function() {
             success: function(data){
                 $("#cartera").text("Cartera: "+data.cartera.toFixed(2)+" €")
                 acciones = data.acciones
-                setInfoDinamica(empresaSeleccionada, precioAccion, data.acciones)
-                $("#vender").prop('disabled', false)
+                setInfoDinamica(empresaSeleccionada, precioAccion, data.acciones, datosEstructurados)
+                $("#vender").prop("disabled", false)
             },
             error: function(err){
-                $("#vender").prop('disabled', false)
-                alert("No tienes acciones de esta empresa")
+                $("#vender").prop("disabled", false)
+                alert("No tienes suficientes acciones de esta empresa")
             }
-        });  
-    });
+        })  
+    })
 
     nombresUnicosEmpresas = Array.from(new Set(nombresEmpresas))
     nombresUnicosEmpresas.sort()
@@ -72,19 +78,20 @@ $(function() {
                 datosEstructurados[nombreEmpresa].push([new Date(element["fecha"].substr(3, 2)+"/"+element["fecha"].substr(0, 2)+"/"+element["fecha"].substr(6, 4)+" GMT"), element["ultimo"]])
         })
     })
-
     empresaSeleccionada = nombresUnicosEmpresas[0]
     empresaSeleccionada2 = nombresUnicosEmpresas[0]
+    
     precioAccion = datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-1][1]
-    setInfoDinamica(empresaSeleccionada, precioAccion, acciones)
+    setInfoDinamica(empresaSeleccionada, precioAccion, acciones, datosEstructurados)
+    compararDias(datosEstructurados, empresaSeleccionada)
     setNoticias(data[1])
 
     $("#empresas").on("change", function() {
         empresaSeleccionada = $(this).val()
         precioAccion = datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-1][1]
-
+        compararDias(datosEstructurados, empresaSeleccionada)
         actualizarGrafica(chart, datosEstructurados, empresaSeleccionada, empresaSeleccionada2)
-        setInfoDinamica(empresaSeleccionada, precioAccion, acciones)       
+        setInfoDinamica(empresaSeleccionada, precioAccion, acciones, datosEstructurados)       
     });
 
     $("#empresas2").on("change", function() {
@@ -127,7 +134,7 @@ $(function() {
             })
             
         }
-    });
+    })
 
     var options = {
         series: [{
@@ -227,28 +234,52 @@ function actualizarGrafica(chart, datos, nombreEmpresa, nombreEmpresa2){
     }
 }
 
-function setInfoDinamica(nombreEmpresa, precioAccion, acciones){
-
+function setInfoDinamica(nombreEmpresa, precioAccion, acciones, datosEstructurados){
+    $("#numeroAcciones").html("<tr><th class='izquierda'>Empresa</th><th>Acciones</th><th class='derecha'>%</th></tr>")
     $("#precioAccion").text("Precio actual: " + precioAccion)
     $(".transaccion").attr("value", nombreEmpresa)
+    $(".valorTransaccion").attr("value", precioAccion)
+    for (x in datosEstructurados){
+        var diferencia = ((datosEstructurados[x][datosEstructurados[x].length-1][1]-datosEstructurados[x][datosEstructurados[x].length-2][1])/datosEstructurados[x][datosEstructurados[x].length-2][1]*100).toFixed(2)
+        var tdDiferencia
+        if(diferencia>0){
+            tdDiferencia = "<td class='derecha verde'>"+diferencia+"</td>"
+        }else{
+            tdDiferencia = "<td class='derecha rojo'>"+diferencia+"</td>"
+        }
+        
+        var flag = false
+        var nombre = x.split(".").join("")
+        for (y in acciones){
+            console.log
+            if (nombre == y){
+                flag = true
+            }
+        }
 
-    nombreEmpresa = nombreEmpresa.split(".").join("")
-    var accionesOrdenadas = []
-    for (x in acciones){
-        accionesOrdenadas.push([x, acciones[x]])
-    }
-    accionesOrdenadas.sort(function(a, b){
-        return b[1] - a[1]
-    })
+        
 
-    $("#numeroAcciones").empty()
-    for (x in accionesOrdenadas){
-        $("#numeroAcciones").append(accionesOrdenadas[x][0] + ": " + accionesOrdenadas[x][1] + "<br>")
-    }
+        if(flag){
+            $("#numeroAcciones").append("<tr><td class='izquierda'>"+nombre+"</td><td class='centro'>"+acciones[nombre]+"</td>"+tdDiferencia+"</tr>")
+        }else{
+            $("#numeroAcciones").append("<tr><td class='izquierda'>"+nombre+"</td><td class='centro'>"+0+"</td>"+tdDiferencia+"</tr>")
+        }
+    } 
 }
 
 function setNoticias(data){
     for (x in data){
         $("#news").append("<div><a target='_blank' href='"+data[x].link+"'>"+data[x].titulo+"</a><p>"+data[x].cuerpo+"</p>")
+    }
+}
+
+function compararDias(datosEstructurados, empresaSeleccionada){
+    var diferencia = datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-1][1]-datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-2][1]
+    if(diferencia > 0){
+        $("#imgComprar").css("opacity", "0")
+        $("#imgVender").css("opacity", "1")
+    }else{
+        $("#imgVender").css("opacity", "0")
+        $("#imgComprar").css("opacity", "1")
     }
 }

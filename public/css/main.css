@@ -39,6 +39,11 @@ footer{
     color: #fff;
 }
 
+#left{
+    float:left;
+    width: 800px;
+}
+
 .main_content{
     overflow: hidden;
     margin: auto;
@@ -90,7 +95,7 @@ footer{
 }
 
 #news{
-    clear: left;
+    float:left;
     width: 730px;
     border: 1px solid #fff;
     margin-left: 20px;
@@ -113,11 +118,15 @@ footer{
 
 #cartera{
     float: right;
+    margin: 0 10px 0 10px;
 }
 
 #topbar form{
-    width: 100px;
     float: right;
+}
+
+#topbar #link{
+    float: left;
 }
 
 #topbar input[type="submit"]{
@@ -157,6 +166,75 @@ footer{
 }
 
 #comparaciones{
-    float: left;
-    margin-left: 20px;
+    margin-top: 10px;
+    height: 30px;
+}
+
+#comprar, #vender{
+    width: 100px;
+}
+
+.num{
+    width: 50px;
+}
+
+#table{
+    margin: 10px auto;
+    width: 1000px;
+    max-height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+
+#transacciones, #numeroAcciones{
+    border-collapse: collapse;
+    color: #fff;
+}
+
+#transacciones th, #numeroAcciones th{
+    color: #e84545;
+    padding: 10px;
+}
+
+#transacciones tr, #numeroAcciones tr{
+    border: 3px solid #903749;
+}
+
+#transacciones td{
+    padding: 10px;
+    width: 200px;
+}
+
+#numeroAcciones td{
+    padding: 1px 10px 1px 10px;
+}
+
+.derecha{
+    text-align: right;
+}
+
+.izquierda{
+    text-align: left;
+}
+
+.centro{
+    text-align: center;
+}
+
+#imgComprar, #imgVender{
+    width: 20px;
+    height: 20px;
+    position:relative;
+    top: 5px;
+    left: 3px;
+    opacity: 0;
+}
+
+.verde{
+    color:rgb(4, 206, 4);
+}
+
+.rojo{
+    color:red;
 }
