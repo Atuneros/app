@@ -58,7 +58,7 @@ const transacciones_get = (req, res) => {
     if(checkSession(req)){
         Transaccion.find({username: req.session.userName}).sort({createdAt: -1})
         .then((result) => {
-            res.render("transacciones", {data: result})
+            res.render("transacciones", {data: result, cartera: req.session.cartera})
         })
         
     }else{
