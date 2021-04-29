@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const dbURI = "mongodb://editorUser:ClaveMongo666@15.188.13.160:27017/bolsa"
+const dbURI = ""
 const conn = mongoose.createConnection(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
 
 const Schema = mongoose.Schema
