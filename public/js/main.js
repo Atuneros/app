@@ -240,7 +240,11 @@ function setInfoDinamica(nombreEmpresa, precioAccion, acciones, datosEstructurad
     $(".transaccion").attr("value", nombreEmpresa)
     $(".valorTransaccion").attr("value", precioAccion)
     for (x in datosEstructurados){
-        var diferencia = ((datosEstructurados[x][datosEstructurados[x].length-1][1]-datosEstructurados[x][datosEstructurados[x].length-2][1])/datosEstructurados[x][datosEstructurados[x].length-2][1]*100).toFixed(2)
+        var diferencia = 0
+        if(datosEstructurados[x].length >= 2){
+            diferencia = ((datosEstructurados[x][datosEstructurados[x].length-1][1]-datosEstructurados[x][datosEstructurados[x].length-2][1])/datosEstructurados[x][datosEstructurados[x].length-2][1]*100).toFixed(2)
+        }
+        
         var tdDiferencia
         if(diferencia>0){
             tdDiferencia = "<td class='derecha verde'>"+diferencia+"</td>"
@@ -274,7 +278,10 @@ function setNoticias(data){
 }
 
 function compararDias(datosEstructurados, empresaSeleccionada){
-    var diferencia = datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-1][1]-datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-2][1]
+    var diferencia = 0
+    if(datosEstructurados[empresaSeleccionada].length >= 2){
+        var diferencia = datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-1][1]-datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-2][1]
+    }
     if(diferencia > 0){
         $("#imgComprar").css("opacity", "0")
         $("#imgVender").css("opacity", "1")
