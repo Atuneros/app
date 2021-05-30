@@ -1,0 +1,6 @@
+models/noticia.js
+models/stockMarket.js
+models/transaccion.js
+models/user.js
+scrap.py
+scrap2.py
