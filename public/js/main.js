@@ -30,6 +30,15 @@ $(function() {
                 acciones = data.acciones
                 setInfoDinamica(empresaSeleccionada, precioAccion, data.acciones, datosEstructurados)
                 $("#comprar").prop("disabled", false)
+                $("#empresas").css("animation-name","none")
+                $("#empresas2").css("animation-name","none")
+                $("#compra_venta").css("animation-name","none")
+                $("#cartera").addClass("cartera_animada")
+                var animationEvent = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
+                $("#cartera").one(animationEvent, function(event) {
+                    $("#cartera").removeClass("cartera_animada")
+                  });
+                $("#link").css("animation-name","brillo")
             },
             error: function(err){
                 $("#comprar").prop("disabled", false)
@@ -55,6 +64,15 @@ $(function() {
                 acciones = data.acciones
                 setInfoDinamica(empresaSeleccionada, precioAccion, data.acciones, datosEstructurados)
                 $("#vender").prop("disabled", false)
+                $("#empresas").css("animation-name","none")
+                $("#empresas2").css("animation-name","none")
+                $("#compra_venta").css("animation-name","none")
+                $("#cartera").addClass("cartera_animada")
+                var animationEvent = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
+                $("#cartera").one(animationEvent, function(event) {
+                    $("#cartera").removeClass("cartera_animada")
+                  });
+                $("#link").css("animation-name","brillo")
             },
             error: function(err){
                 $("#vender").prop("disabled", false)
@@ -87,6 +105,9 @@ $(function() {
     setNoticias(data[1])
 
     $("#empresas").on("change", function() {
+        $("#empresas").css("animation-name","none")
+        $("#empresas2").css("animation-name","none")
+        $("#compra_venta").css("animation-name","brillo")
         empresaSeleccionada = $(this).val()
         precioAccion = datosEstructurados[empresaSeleccionada][datosEstructurados[empresaSeleccionada].length-1][1]
         compararDias(datosEstructurados, empresaSeleccionada)

@@ -1,7 +1,7 @@
 extends layout
 block content 
     div(class = "main_content", id = "main_content_login") 
-        form(action="/login", method="post") 
+        form(id="login" action="/login", method="post") 
             .text USERNAME
             input(
                 class = "email"
@@ -20,3 +20,6 @@ block content
                 type = "submit"
                 value = "Login"
             )
+    img(id="loading_img", src="img/loading.gif")
+append scripts
+    script(src="js/login.js")

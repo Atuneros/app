@@ -21,61 +21,68 @@ block content
             #sidebar
                 #gestionAcciones
                     select#empresas
+                    br
+                    br
                     #precioAccion
-                    form(id = "formComprar", action="/buy")
-                        input(
-                            id = "comprar"
-                            type = "submit"
-                            value = "Comprar"
-                        )
-                        input(
-                            class = "num"
-                            type = "number"
-                            class = "totalAcciones"
-                            name = "totalAcciones"
-                            min = "0"
-                        )
-                        img(id="imgComprar", src="img/greenArrow.png")
-                        span(id="compraText")
-                        input(
-                            type = "hidden"
-                            class = "transaccion"
-                            name = "empresa"
-                        )
-                        input(
-                            type = "hidden"
-                            class = "valorTransaccion"
-                            name = "valor"
-                        )
-                    form(id = "formVender", action="/sell")
-                        input(
-                            id = "vender"
-                            type = "submit"
-                            value = "Vender"
-                        )
-                        input(
-                            class = "num"
-                            type = "number"
-                            class = "totalAcciones"
-                            name = "totalAcciones"
-                            min = "0"
-                        )
-                        img(id="imgVender", src="img/greenArrow.png")
-                        span(id="ventaText")
-                        input(
-                            type = "hidden"
-                            class = "transaccion"
-                            name = "empresa"
-                        )
-                        input(
-                            type = "hidden"
-                            class = "valorTransaccion"
-                            name = "valor"
-                        )
+                    br
+                    #compra_venta
+                        form(id = "formComprar", action="/buy")
+                            input(
+                                id = "comprar"
+                                type = "submit"
+                                value = "Comprar"
+                            )
+                            input(
+                                class = "num"
+                                type = "number"
+                                class = "totalAcciones"
+                                name = "totalAcciones"
+                                min = "0"
+                            )
+                            img(id="imgComprar", src="img/greenArrow.png")
+                            span(id="compraText")
+                            input(
+                                type = "hidden"
+                                class = "transaccion"
+                                name = "empresa"
+                            )
+                            input(
+                                type = "hidden"
+                                class = "valorTransaccion"
+                                name = "valor"
+                            )
+                        form(id = "formVender", action="/sell")
+                            input(
+                                id = "vender"
+                                type = "submit"
+                                value = "Vender"
+                            )
+                            input(
+                                class = "num"
+                                type = "number"
+                                class = "totalAcciones"
+                                name = "totalAcciones"
+                                min = "0"
+                            )
+                            img(id="imgVender", src="img/greenArrow.png")
+                            span(id="ventaText")
+                            input(
+                                type = "hidden"
+                                class = "transaccion"
+                                name = "empresa"
+                            )
+                            input(
+                                type = "hidden"
+                                class = "valorTransaccion"
+                                name = "valor"
+                            )
                     #comparaciones
                         button(id="comparar") Comparar
                         br
+                        br
                         select#empresas2
+                    br
+                    br
                     br
                     table(id = "numeroAcciones")    
         

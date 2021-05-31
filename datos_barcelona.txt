@@ -1,0 +1,35 @@
+{"nombre": "ACCIONA", "fecha": "31/05/2021", "hora": "16:00:23", "ultimo": 138.2, "%dif": -2.61, "max": 142.2, "min": 138.2, "volumen": 27168, "efectivo": 3784.09}
+{"nombre": "ACERINOX", "fecha": "31/05/2021", "hora": "16:07:50", "ultimo": 11.755, "%dif": 0.51, "max": 11.835, "min": 11.705, "volumen": 519588, "efectivo": 6111.14}
+{"nombre": "ACS", "fecha": "31/05/2021", "hora": "16:06:52", "ultimo": 25.68, "%dif": 1.5, "max": 25.86, "min": 25.39, "volumen": 179796, "efectivo": 4618.87}
+{"nombre": "AENA", "fecha": "31/05/2021", "hora": "16:07:34", "ultimo": 144.9, "%dif": 1.33, "max": 144.9, "min": 142.75, "volumen": 55029, "efectivo": 7901.27}
+{"nombre": "ALMIRALL", "fecha": "31/05/2021", "hora": "16:05:43", "ultimo": 14.08, "%dif": 0.5, "max": 14.08, "min": 13.87, "volumen": 114722, "efectivo": 1604.95}
+{"nombre": "AMADEUS", "fecha": "31/05/2021", "hora": "16:06:08", "ultimo": 62.02, "%dif": 0.03, "max": 62.36, "min": 61.74, "volumen": 501912, "efectivo": 31066.52}
+{"nombre": "ARCELORMIT.", "fecha": "31/05/2021", "hora": "16:07:43", "ultimo": 26.955, "%dif": 1.91, "max": 26.99, "min": 26.51, "volumen": 227103, "efectivo": 6096.29}
+{"nombre": "B.SANTANDER", "fecha": "31/05/2021", "hora": "16:07:11", "ultimo": 3.45, "%dif": -0.01, "max": 3.46, "min": 3.431, "volumen": 6333488, "efectivo": 21812.16}
+{"nombre": "BA.SABADELL", "fecha": "31/05/2021", "hora": "16:06:36", "ultimo": 0.6268, "%dif": -0.7, "max": 0.6384, "min": 0.623, "volumen": 16062235, "efectivo": 10122.5}
+{"nombre": "BANKINTER", "fecha": "31/05/2021", "hora": "16:06:51", "ultimo": 4.709, "%dif": 0.62, "max": 4.727, "min": 4.662, "volumen": 1525274, "efectivo": 7191.18}
+{"nombre": "BBVA", "fecha": "31/05/2021", "hora": "16:07:43", "ultimo": 5.151, "%dif": 0.49, "max": 5.172, "min": 5.131, "volumen": 2340800, "efectivo": 12061.69}
+{"nombre": "CAIXABANK", "fecha": "31/05/2021", "hora": "16:04:46", "ultimo": 2.825, "%dif": -0.56, "max": 2.849, "min": 2.814, "volumen": 2235441, "efectivo": 6319.36}
+{"nombre": "CELLNEX", "fecha": "31/05/2021", "hora": "16:06:21", "ultimo": 49.44, "%dif": -0.74, "max": 49.97, "min": 49.07, "volumen": 1232083, "efectivo": 61425.79}
+{"nombre": "CIE AUTOMOT.", "fecha": "31/05/2021", "hora": "16:07:02", "ultimo": 24.84, "%dif": 1.14, "max": 24.92, "min": 24.6, "volumen": 48275, "efectivo": 1192.93}
+{"nombre": "ENAGAS", "fecha": "31/05/2021", "hora": "16:06:12", "ultimo": 19.315, "%dif": 0.23, "max": 19.385, "min": 19.25, "volumen": 190699, "efectivo": 3685.85}
+{"nombre": "ENDESA", "fecha": "31/05/2021", "hora": "16:07:55", "ultimo": 22.44, "%dif": -5.12, "max": 23.2, "min": 22.38, "volumen": 2128067, "efectivo": 48174.16}
+{"nombre": "FERROVIAL", "fecha": "31/05/2021", "hora": "16:07:44", "ultimo": 24.21, "%dif": 1.0, "max": 24.28, "min": 23.94, "volumen": 248707, "efectivo": 6009.23}
+{"nombre": "FLUIDRA", "fecha": "31/05/2021", "hora": "15:51:10", "ultimo": 33.25, "%dif": 1.99, "max": 33.5, "min": 32.7, "volumen": 146336, "efectivo": 4865.18}
+{"nombre": "GRIFOLS CL.A", "fecha": "31/05/2021", "hora": "16:07:51", "ultimo": 22.91, "%dif": 0.26, "max": 23.08, "min": 22.87, "volumen": 92516, "efectivo": 2124.09}
+{"nombre": "IAG", "fecha": "31/05/2021", "hora": "16:07:44", "ultimo": 2.377, "%dif": 0.72, "max": 2.38, "min": 2.352, "volumen": 3764640, "efectivo": 8927.63}
+{"nombre": "IBERDROLA", "fecha": "31/05/2021", "hora": "16:07:40", "ultimo": 11.06, "%dif": -2.17, "max": 11.215, "min": 11.045, "volumen": 9075490, "efectivo": 101589.75}
+{"nombre": "INDITEX", "fecha": "31/05/2021", "hora": "16:07:56", "ultimo": 31.73, "%dif": -0.6, "max": 31.97, "min": 31.65, "volumen": 401605, "efectivo": 12766.13}
+{"nombre": "INDRA A", "fecha": "31/05/2021", "hora": "16:07:29", "ultimo": 7.06, "%dif": -1.26, "max": 7.205, "min": 7.05, "volumen": 557360, "efectivo": 3965.56}
+{"nombre": "INM.COLONIAL", "fecha": "31/05/2021", "hora": "16:05:51", "ultimo": 9.135, "%dif": 0.22, "max": 9.175, "min": 9.08, "volumen": 92748, "efectivo": 845.48}
+{"nombre": "MAPFRE", "fecha": "31/05/2021", "hora": "16:07:34", "ultimo": 1.864, "%dif": -0.75, "max": 1.8945, "min": 1.861, "volumen": 5922363, "efectivo": 11142.22}
+{"nombre": "MELIA HOTELS", "fecha": "31/05/2021", "hora": "16:05:43", "ultimo": 6.938, "%dif": 0.78, "max": 6.978, "min": 6.86, "volumen": 314699, "efectivo": 2175.44}
+{"nombre": "MERLIN", "fecha": "31/05/2021", "hora": "16:03:17", "ultimo": 9.512, "%dif": 0.53, "max": 9.55, "min": 9.454, "volumen": 279837, "efectivo": 2658.06}
+{"nombre": "NATURGY", "fecha": "31/05/2021", "hora": "16:03:34", "ultimo": 21.49, "%dif": 0.09, "max": 21.52, "min": 21.45, "volumen": 115342, "efectivo": 2479.07}
+{"nombre": "PHARMA MAR", "fecha": "31/05/2021", "hora": "16:07:46", "ultimo": 77.2, "%dif": 0.86, "max": 77.48, "min": 76.18, "volumen": 50763, "efectivo": 3897.99}
+{"nombre": "R.E.C.", "fecha": "31/05/2021", "hora": "16:06:40", "ultimo": 16.445, "%dif": 0.15, "max": 16.56, "min": 16.355, "volumen": 310376, "efectivo": 5108.01}
+{"nombre": "REPSOL", "fecha": "31/05/2021", "hora": "16:07:13", "ultimo": 10.998, "%dif": 0.31, "max": 11.006, "min": 10.906, "volumen": 940014, "efectivo": 10308.61}
+{"nombre": "SIEMENS GAME", "fecha": "31/05/2021", "hora": "16:03:34", "ultimo": 26.88, "%dif": -0.85, "max": 27.27, "min": 26.74, "volumen": 149605, "efectivo": 4041.93}
+{"nombre": "SOLARIA", "fecha": "31/05/2021", "hora": "16:07:20", "ultimo": 15.995, "%dif": 3.49, "max": 16.66, "min": 15.35, "volumen": 807283, "efectivo": 13054.77}
+{"nombre": "TELEFONICA", "fecha": "31/05/2021", "hora": "16:07:33", "ultimo": 4.041, "%dif": 0.21, "max": 4.0845, "min": 4.04, "volumen": 24664245, "efectivo": 100157.18}
+{"nombre": "VISCOFAN", "fecha": "31/05/2021", "hora": "15:21:50", "ultimo": 58.0, "%dif": 0.26, "max": 58.25, "min": 57.75, "volumen": 5326, "efectivo": 308.68}

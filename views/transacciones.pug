@@ -22,6 +22,8 @@ block content
                     th(class="derecha") Tipo
                     th(class="derecha") Fecha
                     th(class="derecha") Total
+        #chart(class="grafica_cartera")
+        img(id="loading_img", src="img/loading.gif")
 append scripts
     script.
         var data = !{JSON.stringify(data)}
