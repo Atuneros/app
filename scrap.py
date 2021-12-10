@@ -35,7 +35,7 @@ for row in filas[1:]:
 
 
 
-client = pymongo.MongoClient("mongodb://admin:ClaveMongo13579@localhost:7070/bolsa")
+client = pymongo.MongoClient("mongodb://admin:password@localhost:7070/bolsa")
 
 db = client["bolsa"]
 col = db["empresas"]
